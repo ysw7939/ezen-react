@@ -41,7 +41,7 @@ const Top = () => {
             <h1>헤드라인 뉴스</h1>
             <hr />
             <nav>
-                <MenuLink to="/">전체보기</MenuLink>
+                <MenuLink to="/web">웹</MenuLink>
                 <MenuLink to="/business">비즈니스</MenuLink>
                 <MenuLink to="/entertainment">엔터네이먼트</MenuLink>
                 <MenuLink to="/health">건강</MenuLink>
