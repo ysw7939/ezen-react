@@ -5,14 +5,16 @@ import axios from 'axios';
 export const getWebList = createAsyncThunk("WEB/GET_LIST", async(payload, {rejectWebVitals}) => {
     let result = null;
 
-    try {
-        const apiUrl = 'https://dapi.kakao.com/v2/search/web';
-        result = await axios.get(apiUrl, {
-            params: {query: payload},
-            headers: {Authorization: 'KakaoAK ff9e717a57a525ac5201c5c326224eea'},
-        });
-    } catch (err) {
-        result = rejectWebVitals(err.response);
+    if (payload.query) {
+        try {
+            const apiUrl = 'https://dapi.kakao.com/v2/search/web';
+            result = await axios.get(apiUrl, {
+                params: {query: payload.query, page: payload.page, size:20},
+                headers: {Authorization: 'KakaoAK ff9e717a57a525ac5201c5c326224eea'},
+            });
+        } catch (err) {
+            result = rejectWebVitals(err.response);
+        }
     }
 
     return result;
@@ -36,7 +38,11 @@ const webSlice = createSlice({
         [getWebList.pending] : (state, {payload}) => {
             return {...state, loading: true}
         },
-        [getWebList.fulfilled]: (state, {payload}) => {
+        [getWebList.fulfilled]: (state, {meta,payload}) => {
+            // 1페이지가 아닌 경우에는 리덕스에 저장되어 있는 현재 데이터에 새로 받아온 데이터를 병합하여 Ajax의 결과를 재구성한다.
+            if(meta.arg.page > 1) {
+                payload.data.documents = state.item.documents.concat(payload.data.documents);
+            }
             return {
                 ...state,
                 rt: payload.status,
