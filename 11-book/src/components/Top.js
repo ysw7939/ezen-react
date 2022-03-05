@@ -63,24 +63,41 @@ const Top = () => {
         setQuery(value);
 
         // 웹 검색 페이지로 강제이동
-        navigate(`/web?query=${encodeURIComponent(value)}`);
+        navigate(`/book?query=${encodeURIComponent(value)}`);
+    }
+    const ascClick = (e) => {
+        e.preventDefault();
+
+        if(query) {
+            navigate(`/book?query=${encodeURIComponent(query)}&order=asc`)
+        }else {
+            inputQuery.current.focus();
+            alert('검색어를 입력하세요.')
+        }
+    }
+    const descClick = (e) => {
+        e.preventDefault();
+
+        if(query) {
+            navigate(`/book?query=${encodeURIComponent(query)}&order=desc`)
+        }else {
+            inputQuery.current.focus();
+            alert('검색어를 입력하세요.')
+        }
     }
     return (
         <div>
-            <h1>카카오 검색</h1>
+            <h1>카카오 책 검색</h1>
             <hr />
             <form onSubmit={handleSubmit}>
                 <input type="search" name='query' ref={inputQuery}/>
                 <button type='submit'>검색</button>
             </form>
-            <hr/>
             <nav>
-                <MenuLink to={`/web?query=${encodeURIComponent(query)}`}>웹</MenuLink>
-                <MenuLink to={`/image?query=${encodeURIComponent(query)}`}>이미지</MenuLink>
-                <MenuLink to={`/blog?query=${encodeURIComponent(query)}`}>블로그</MenuLink>
-                <MenuLink to={`/cafe?query=${encodeURIComponent(query)}`}>카페</MenuLink>
-                <MenuLink to={`/book?query=${encodeURIComponent(query)}`}>책</MenuLink>
+                <MenuLink onClick={ascClick} to={`/book?query=${encodeURIComponent(query)}&order=asc`}>낮은 가격순 정렬</MenuLink>
+                <MenuLink onClick={descClick} to={`/book?query=${encodeURIComponent(query)}&order=desc`}>높은 가격순 정렬</MenuLink>
             </nav>
+            <hr/>
         </div>
     );
 };
