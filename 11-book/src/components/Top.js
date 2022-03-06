@@ -88,16 +88,17 @@ const Top = () => {
     return (
         <div>
             <h1>카카오 책 검색</h1>
-            <hr />
+
             <form onSubmit={handleSubmit}>
-                <input type="search" name='query' ref={inputQuery}/>
-                <button type='submit'>검색</button>
+                <fieldset>
+                    <input type="search" name='query' ref={inputQuery}/>
+                    <button type='submit'>검색</button>
+
+                    <MenuLink onClick={ascClick} to={`/book?query=${encodeURIComponent(query)}&order=asc`}> 낮은 가격순 정렬</MenuLink>
+                    <MenuLink onClick={descClick} to={`/book?query=${encodeURIComponent(query)}&order=desc`}>높은 가격순 정렬</MenuLink>
+                </fieldset>
             </form>
-            <nav>
-                <MenuLink onClick={ascClick} to={`/book?query=${encodeURIComponent(query)}&order=asc`}>낮은 가격순 정렬</MenuLink>
-                <MenuLink onClick={descClick} to={`/book?query=${encodeURIComponent(query)}&order=desc`}>높은 가격순 정렬</MenuLink>
-            </nav>
-            <hr/>
+
         </div>
     );
 };
