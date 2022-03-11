@@ -11,7 +11,7 @@ const ListView = ({documents, thumb, inview}) => {
             {documents.map((item, index) => (
                 // 마지막 항목에 대해 ref 속성에 inview값을 추가한다.
                 <li className={style.mediaItem} key={index}
-                    {... (documents.length-1 === index ? {ref: inview} : {})}>
+                    {...(documents.length-1 === index ? {ref: inview} : {} )}>
                     {/* props로 전달된 thumb가 true인 경우에만 thumbnail 이라는 class를 적용 */}
                     <a href={item.url} target="_blank" rel="noreferrer" className={thumb && style.thumbnail}>
                         {/* prop로 전달된 thumb가 true인 경우에만 이미지 표시 */}
@@ -21,7 +21,7 @@ const ListView = ({documents, thumb, inview}) => {
                                 alt={item.title}/>
                         )}
                         {/* 제목과 상세 내용은 HTML태그가 포함되어 있기 때문에 dangerouslySetInnerHTML을 사용해서 출력 */}
-                        <h2 className={style.mediaHeading} dangerouslySetInnerHTML={{__html:item.title}} />
+                        <h2  dangerouslySetInnerHTML={{__html:item.title}} />
                         <p className={style.desc} dangerouslySetInnerHTML={{__html:item.contents}} />
 
                         {/* 가격정보가 있을 경우에만 출력하는 영역 (for 책검색) */}
@@ -41,12 +41,15 @@ const ListView = ({documents, thumb, inview}) => {
                             {item.publisher && (
                                 <span><strong>{item.publisher}</strong> / </span>
                             )}
+                            {/* 카페이름이 있는 경우만 출력되는 영역 */}
                             {item.cafename && (
                                 <span><strong>{item.cafename}</strong> / </span>
                             )}
+                            {/* 블로그이름이 있는경우만 출력된는 영역 */}
                             {item.blogname && (
                                 <span><strong>{item.blogname}</strong> / </span>
                             )}
+                            {/* 날짜 정보가 있는 경우만 출려된는 영역 */}
                             {item.datetime && (
                                 <span>{dayjs(item.datetime).format('YYYY-MM-DD hh:mm')}</span>
                             )}

@@ -6,22 +6,11 @@ import noimg from '../assets/img/noimg.png'
 
 
 const ListView = ({documents, thumb, order}) => {
+    
     if (order === 'asc') {
-        documents = documents.slice().sort((a, b) => {
-            if (a.price > b.price) {
-                return 1;
-            } else {
-                return -1;
-            }
-        })
+        documents = documents.slice().sort((a, b) => a.price - b.price);
     } else if (order === 'desc') {
-        documents = documents.slice().sort((a, b) => {
-            if (a.price < b.price) {
-                return 1;
-            } else {
-                return -1;
-            }
-        })
+        documents = documents.slice().sort((a, b) => b.price - a.price);
     }
 
     return (

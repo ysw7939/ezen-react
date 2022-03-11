@@ -74,13 +74,15 @@ const Top = () => {
                 <button type='submit'>검색</button>
             </form>
             <hr/>
-            <nav>
-                <MenuLink to={`/web?query=${encodeURIComponent(query)}`}>웹</MenuLink>
-                <MenuLink to={`/image?query=${encodeURIComponent(query)}`}>이미지</MenuLink>
-                <MenuLink to={`/blog?query=${encodeURIComponent(query)}`}>블로그</MenuLink>
-                <MenuLink to={`/cafe?query=${encodeURIComponent(query)}`}>카페</MenuLink>
-                <MenuLink to={`/book?query=${encodeURIComponent(query)}`}>책</MenuLink>
-            </nav>
+            { query && (
+                <nav>
+                    <MenuLink to={`/web?query=${encodeURIComponent(query)}`}>웹</MenuLink>
+                    <MenuLink to={`/image?query=${encodeURIComponent(query)}`}>이미지</MenuLink>
+                    <MenuLink to={`/blog?query=${encodeURIComponent(query)}`}>블로그</MenuLink>
+                    <MenuLink to={`/cafe?query=${encodeURIComponent(query)}`}>카페</MenuLink>
+                    <MenuLink to={`/book?query=${encodeURIComponent(query)}`}>책</MenuLink>
+                </nav>
+            )}
         </div>
     );
 };

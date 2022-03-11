@@ -2,38 +2,6 @@ import React from 'react';
 import styled from 'styled-components'
 import { NavLink, useNavigate } from 'react-router-dom'
 
-const MenuLink = styled(NavLink)`
-    font-size: 20px;
-    cursor: pointer;
-    text-decoration: none;
-    padding-bottom: 2px;
-    color: #222;
-
-    &:hover {
-        color: #22b8cf;
-    }
-
-    &:after {
-        content: '|';
-        display: inline-block;
-        padding: 0 7px;
-        color: #ccc;
-    }
-
-    &:last-child {
-        &:after { 
-            color: #fff;
-        }
-    }
-
-    &.active {
-        text-decoration: underline;
-        color: #22b8cf;
-        &:after {
-            border-bottom: 4px solid #fff !important;
-        }
-    }
-`;
 
 const Top = () => {
 
@@ -65,26 +33,15 @@ const Top = () => {
         // 웹 검색 페이지로 강제이동
         navigate(`/book?query=${encodeURIComponent(value)}`);
     }
-    const ascClick = (e) => {
-        e.preventDefault();
-
-        if(query) {
-            navigate(`/book?query=${encodeURIComponent(query)}&order=asc`)
-        }else {
+    
+    const orderClick = (e) => {
+        if(!query) {
+            e.preventDefault();
             inputQuery.current.focus();
             alert('검색어를 입력하세요.')
         }
     }
-    const descClick = (e) => {
-        e.preventDefault();
 
-        if(query) {
-            navigate(`/book?query=${encodeURIComponent(query)}&order=desc`)
-        }else {
-            inputQuery.current.focus();
-            alert('검색어를 입력하세요.')
-        }
-    }
     return (
         <div>
             <h1>카카오 책 검색</h1>
@@ -94,8 +51,8 @@ const Top = () => {
                     <input type="search" name='query' ref={inputQuery}/>
                     <button type='submit'>검색</button>
 
-                    <MenuLink onClick={ascClick} to={`/book?query=${encodeURIComponent(query)}&order=asc`}> 낮은 가격순 정렬</MenuLink>
-                    <MenuLink onClick={descClick} to={`/book?query=${encodeURIComponent(query)}&order=desc`}>높은 가격순 정렬</MenuLink>
+                    <NavLink onClick={orderClick} to={`/book?query=${encodeURIComponent(query)}&order=asc`}> 낮은 가격순 정렬 </NavLink>
+                    <NavLink onClick={orderClick} to={`/book?query=${encodeURIComponent(query)}&order=desc`}> 높은 가격순 정렬</NavLink>
                 </fieldset>
             </form>
 

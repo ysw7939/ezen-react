@@ -37,7 +37,7 @@ const blogSlice = createSlice({
         [getBlogList.pending] : (state, {payload}) => {
             return {...state, loading: true}
         },
-        [getBlogList.fulfilled]: (state, {meta,payload}) => {
+        [getBlogList.fulfilled]: (state, {meta, payload}) => {
             // 1페이지가 아닌 경우에는 리덕스에 저장되어 있는 현재 데이터에 새로 받아온 데이터를 병합하여 Ajax의 결과를 재구성한다.
             if(meta.arg.page > 1) {
                 payload.data.documents = state.item.documents.concat(payload.data.documents);
