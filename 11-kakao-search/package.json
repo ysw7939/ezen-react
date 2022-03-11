@@ -2,6 +2,7 @@
   "name": "11-kakao-search",
   "version": "0.1.0",
   "private": true,
+  "homepage": "/ezen-react/11-kakao-search",
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.0",
     "@testing-library/jest-dom": "^5.14.1",
